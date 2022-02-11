@@ -2,6 +2,7 @@
 <html>
 
     <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <meta charset="utf-8">
         <title>VueJS: Componentes</title>
         <meta name="author" content="">
@@ -12,7 +13,7 @@
 
     <body>
 
-        <h1 id="autor">Autor: TU NOMBRE AQUÍ</h1>
+        <h1 id="autor">Autor: Alan</h1>
 
         <!-- https://vuejs.org/v2/guide/index.html -->
         <div id="app">
@@ -22,7 +23,28 @@
                - Para cada item: (https://vuejs.org/v2/guide/index.html#Conditionals-and-Loops)
                  - Crear un componente item-data
             -->
-
+            <div class="jumbotron">
+                    <h1 class="display-4" id="title">{{ col.collection.title }}</h1>
+            </div>
+              <!--<div class="container">
+                <div class="row">
+                  <div class="col s-5" v-for="item in arrayItems">
+                    <div class="card" style="width: 18rem;">
+                      <div class="card-body">
+                        <dl v-for="dato in item.data">
+                          <dt>{{ dato.prompt }}</dt>
+                          <dd>{{ dato.value }}</dd>
+                        </dl>
+                        <a :href="item.href" class="btn btn-primary">Ver</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            -->
+          <div class="card-group" style="margin:0 50px;">
+              <item-data v-for="item in col.collection.items" :item="item" refs="formClosed"></item-data>
+          </div> 
         </div>
 
 
@@ -33,6 +55,16 @@
             <!--
                  TODO: Componente edit-form
             -->
+
+            <div class="card">
+              <div class="card-body">
+                  <dl v-for="dato in item.data">
+                      <dt>{{dato.prompt}}</dt>
+                      <input v-model="dato.value" type="text">
+                  </dl>
+                  <button v-on:click="closeForm"  class="btn btn-secondary">Guardar</button>
+              </div>
+          </div>
 
         </script>
 
@@ -45,10 +77,36 @@
                  TODO: Componente item-data
             -->
 
+            <div class="card">
+                <div class="card-body" v-show="datos">
+                    <dl v-for="dato in item.data">
+                        <dt>{{dato.prompt}}</dt>
+                        <dd>{{dato.value}}</dd>
+                    </dl>
+                        
+                        <a v-bind:href="item.href" class="btn btn-primary" role="button">Ver</a>
+                        <button v-on:click="toggleEditFormVisibility"  class="btn btn-secondary">Editar</button>
+                    </div>
+                <div class="card-body" v-show="formulario">
+                    <dl v-for="dato in item.data" >
+                        <dt>{{dato.prompt}}</dt>
+                        <input v-model="dato.value" type="text">
+                    </dl>
+                    <button v-on:click="closeForm"  class="btn btn-secondary">Cerrar</button>
+                </div>
+            </div>
+
         </script>
 
 
         <!-- TODO: Cargar librería VueJS y archivo js/script.js -->
+
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+        <script src="./js/script.js"></script>
+
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
     </body>
 
